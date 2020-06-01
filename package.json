@@ -1,0 +1,23 @@
+{
+  "name": "ok-bot",
+  "version": "1.0.0",
+  "description": "An bot to annoy your discord server with, responds to everything with 'ok'",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -i store.json index",
+    "lint": "eslint ."
+  },
+  "repository": "https://github.com/trickypr/ok-bot.git",
+  "author": "TrickyPR",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
