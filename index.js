@@ -4,8 +4,18 @@ DBClass = null
 
 require('dotenv').config()
 const Discord = require('discord.js')
-
 const bot = new Discord.Client()
+
+function updateActive() {
+	bot.user.setStatus(db.getActive() ? 'online' : 'idle')
+}
+
+function updateCount() {
+	bot.user.setActivity(
+		`around,  annoyed ${db.getCount()} people. Type ok!info for info`,
+		{ type: 'PLAYING' }
+	)
+}
 
 bot.on('ready', () => {
 	console.log('Login')
@@ -20,7 +30,8 @@ bot.on('ready', () => {
 bot.on('message', (message) => {
 	if (message.content.toLowerCase() == 'ok!toggle') {
 		db.toggleActive()
-		message.channel.send(`Toggled state to ${db.getCount() ? 'on' : 'off'}`)
+		message.react('👍')
+		updateActive()
 		return
 	}
 
@@ -47,14 +58,13 @@ bot.on('message', (message) => {
 			message.channel.send('ok')
 
 			db.incrementCount()
+			updateCount()
 
 			if (db.getCount() % 50 == 0)
 				message.channel.send(`You were the ${db.getCount()}th person annoyed!`)
 		
-		} else if (message.author.username != bot.user.username) {
-			message.react('😁')
+		} else if (message.author.username != bot.user.username) 
 			message.react('❤️')
-		}
 	}
 })
 
